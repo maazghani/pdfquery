@@ -8,13 +8,13 @@ Use the instructions below or use the Makefile:
 
 | Command        | Description                                      |
 |----------------|--------------------------------------------------|
-| `venv`         | Create virtual environment (`.venv`)             |
-| `install`      | Install `pdfquery` in editable mode + dev deps   |
-| `test`         | Run `pytest`                                     |
-| `lint`         | Run `ruff` linting                               |
-| `format`       | Run `black` code formatter                       |
-| `docker-build` | Build local Docker image (`pdfquery:latest`)     |
-| `clean`        | Remove caches, build artifacts, and `.venv`      |
+| `make venv`         | Create virtual environment (`.venv`)             |
+| `make install`      | Install `pdfquery` in editable mode + dev deps   |
+| `make test`         | Run `pytest`                                     |
+| `make lint`         | Run `ruff` linting                               |
+| `make format`       | Run `black` code formatter                       |
+| `make docker-build` | Build local Docker image (`pdfquery:latest`)     |
+| `make clean`        | Remove caches, build artifacts, and `.venv`      |
 
 ## Quickstart
 
