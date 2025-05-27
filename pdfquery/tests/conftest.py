@@ -6,7 +6,6 @@ Global pytest fixtures for pdfquery tests.
 • Mocks embed_texts everywhere to avoid hitting the OpenAI API.
 """
 
-from pathlib import Path
 import numpy as np
 import pytest
 

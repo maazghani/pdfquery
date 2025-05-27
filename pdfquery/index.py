@@ -9,7 +9,6 @@ from typing import List
 import faiss
 import numpy as np
 import PyPDF2
-from tqdm import tqdm
 
 # NOTE: we import embed_texts lazily so tests can monkey-patch it
 CHUNK_SIZE = 1000  # ≈ 800 tokens
@@ -114,10 +113,10 @@ def query_index(
     q_vec = embed_texts([question])[0].astype("float32")
     faiss.normalize_L2(q_vec.reshape(1, -1))
 
-    D, I = index.search(np.array([q_vec]), top_k)
+    distances, indices = index.search(np.array([q_vec]), top_k)
 
     chunks = []
-    for idx in I[0]:
+    for idx in indices[0]:
         if idx == -1:
             continue
         chunks.append(metadata[idx]["text"])
