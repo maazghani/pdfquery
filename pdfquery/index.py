@@ -1,4 +1,5 @@
 """Index-building and search utilities."""
+
 from __future__ import annotations
 
 import json
@@ -11,7 +12,7 @@ import PyPDF2
 from tqdm import tqdm
 
 # NOTE: we import embed_texts lazily so tests can monkey-patch it
-CHUNK_SIZE = 1000           # ≈ 800 tokens
+CHUNK_SIZE = 1000  # ≈ 800 tokens
 CHUNK_OVERLAP = 200
 
 
@@ -40,9 +41,9 @@ def _split_by_tokens(text: str, size: int, overlap: int) -> List[str]:
         return out
 
 
-def _chunk_page_text(text: str, page_number: int,
-                     size: int = CHUNK_SIZE,
-                     overlap: int = CHUNK_OVERLAP) -> List[str]:
+def _chunk_page_text(
+    text: str, page_number: int, size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP
+) -> List[str]:
     text = text.strip()
     if not text:
         return []
@@ -52,8 +53,7 @@ def _chunk_page_text(text: str, page_number: int,
         return [f"Page {page_number}:\n{text}"]
 
     chunks = _split_by_tokens(text, size, overlap)
-    return [f"Page {page_number} – chunk {i+1}:\n{c}"
-            for i, c in enumerate(chunks)]
+    return [f"Page {page_number} – chunk {i + 1}:\n{c}" for i, c in enumerate(chunks)]
 
 
 # ───────────────────────────── Index builders ───────────────────────────────
@@ -72,6 +72,7 @@ def build_index(pdf_path: str, index_name: str, out_dir: str = "vector") -> None
 
     print(f"[*] Generating embeddings for {len(chunks)} chunks …")
     from .embedding import embed_texts  # local import for test monkey-patching
+
     embeds = np.stack(embed_texts(chunks)).astype("float32")
 
     # L2-normalize for cosine similarity & use inner-product index
@@ -103,10 +104,9 @@ def load_index(index_name: str, out_dir: str = "vector"):
     return index, metadata
 
 
-def query_index(index_name: str,
-                question: str,
-                top_k: int = 5,
-                out_dir: str = "vector") -> List[str]:
+def query_index(
+    index_name: str, question: str, top_k: int = 5, out_dir: str = "vector"
+) -> List[str]:
     """Return *top_k* most relevant chunks as plain strings."""
     from .embedding import embed_texts  # local import to allow monkey-patching
 

@@ -5,6 +5,7 @@ Global pytest fixtures for pdfquery tests.
 • Replaces PyPDF2.PdfReader so tests never read a real PDF file.
 • Mocks embed_texts everywhere to avoid hitting the OpenAI API.
 """
+
 from pathlib import Path
 import numpy as np
 import pytest
@@ -19,7 +20,7 @@ def fake_pdf_text():
     return [
         "Security is top priority.\nWe protect data.",
         "Reliability keeps workloads running.",
-        "Cost optimization reduces wastage."
+        "Cost optimization reduces wastage.",
     ]
 
 
@@ -31,13 +32,18 @@ def patch_pypdf2(monkeypatch, fake_pdf_text):
     """Replace PyPDF2.PdfReader with a stub that returns fake pages."""
 
     class _FakePage:
-        def __init__(self, txt): self._t = txt
-        def extract_text(self):  return self._t
+        def __init__(self, txt):
+            self._t = txt
+
+        def extract_text(self):
+            return self._t
 
     class _FakeReader:
-        def __init__(self, *_): self.pages = [_FakePage(t) for t in fake_pdf_text]
+        def __init__(self, *_):
+            self.pages = [_FakePage(t) for t in fake_pdf_text]
 
     import PyPDF2
+
     monkeypatch.setattr(PyPDF2, "PdfReader", _FakeReader)
     return _FakeReader
 

@@ -1,4 +1,5 @@
 """pdfquery CLI implemented with Typer."""
+
 from __future__ import annotations
 
 import os
@@ -18,10 +19,8 @@ app = typer.Typer(add_help_option=True, rich_markup_mode="rich")
 
 @app.command("index")
 def cmd_index(
-    source: str = typer.Option(..., "--source",
-                               help="Path to the PDF file to index."),
-    name: str = typer.Option(..., "--name",
-                             help="Index name (used for storage)."),
+    source: str = typer.Option(..., "--source", help="Path to the PDF file to index."),
+    name: str = typer.Option(..., "--name", help="Index name (used for storage)."),
     key: str = typer.Option(None, "--key", help="OpenAI API key (optional)"),
 ):
     """Create or update an index from *source* PDF under *name*."""
@@ -33,15 +32,15 @@ def cmd_index(
 @app.command("query")
 def cmd_query(
     name: str = typer.Option(..., "--name", help="Index name to query."),
-    question: str = typer.Argument(...,
-                                   help="Question to ask about the PDF(s)."),
+    question: str = typer.Argument(..., help="Question to ask about the PDF(s)."),
     model: str = typer.Option(
-        "gpt-4o-mini", help="OpenAI chat completion model to use."),
-    top_k: int = typer.Option(
-        5, help="Number of text chunks to retrieve as context."),
+        "gpt-4o-mini", help="OpenAI chat completion model to use."
+    ),
+    top_k: int = typer.Option(5, help="Number of text chunks to retrieve as context."),
     key: str = typer.Option(None, "--key", help="OpenAI API key (optional)"),
     dry_run: bool = typer.Option(
-        False, "--dry-run", help="Print retrieved chunks without calling GPT."),
+        False, "--dry-run", help="Print retrieved chunks without calling GPT."
+    ),
 ):
     """Ask *question* about the indexed PDF and optionally run GPT on the context."""
     if key:
@@ -56,9 +55,7 @@ def cmd_query(
 
     context = "\n---\n".join(chunks)
 
-    system_prompt = (
-        "You are a helpful assistant. Answer the user's question ONLY using the provided PDF context.\n"
-    )
+    system_prompt = "You are a helpful assistant. Answer the user's question ONLY using the provided PDF context.\n"
 
     messages = [
         {"role": "system", "content": system_prompt},

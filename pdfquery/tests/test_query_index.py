@@ -12,7 +12,7 @@ def test_query_retrieves_expected_pages(tmp_path):
         "aws",
         "Does it discuss security?",
         top_k=3,
-        out_dir=out_dir.as_posix(),   # <<—— pass the directory we just built
+        out_dir=out_dir.as_posix(),  # <<—— pass the directory we just built
     )
 
     # First fake page contains the word "Security"
