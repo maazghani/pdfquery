@@ -4,7 +4,7 @@
 vector indices (FAISS) and lets GPT answer questions using only the relevant
 passages.
 
-For full usage instructions run `pdfquery --help` once built or refer to the [Usage](./USAGE.MD)
+For full usage instructions run `pdfquery --help` once built or refer to the [Usage](./USAGE.md)
 
 Use the instructions below or use the Makefile:
 
