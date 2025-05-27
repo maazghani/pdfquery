@@ -99,7 +99,7 @@ def load_index(index_name: str, out_dir: str = "vector"):
     if not (os.path.exists(idx_path) and os.path.exists(meta_path)):
         raise FileNotFoundError(f"Index '{index_name}' not found in {out_dir}/")
     index = faiss.read_index(idx_path)
-    metadata = [json.loads(l) for l in open(meta_path, encoding="utf-8")]
+    metadata = [json.loads(line) for line in open(meta_path, encoding="utf-8")]
     return index, metadata
 
 
