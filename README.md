@@ -4,6 +4,18 @@
 vector indices (FAISS) and lets GPT answer questions using only the relevant
 passages.
 
+Use the instructions below or use the Makefile:
+
+| Command        | Description                                      |
+|----------------|--------------------------------------------------|
+| `venv`         | Create virtual environment (`.venv`)             |
+| `install`      | Install `pdfquery` in editable mode + dev deps   |
+| `test`         | Run `pytest`                                     |
+| `lint`         | Run `ruff` linting                               |
+| `format`       | Run `black` code formatter                       |
+| `docker-build` | Build local Docker image (`pdfquery:latest`)     |
+| `clean`        | Remove caches, build artifacts, and `.venv`      |
+
 ## Quickstart
 
 ```bash
