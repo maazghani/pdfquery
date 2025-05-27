@@ -1,7 +1,7 @@
 # pdfquery
 
-**pdfquery** is a tiny command‑line tool that turns your PDFs into searchable
-vector indexes (FAISS) and lets GPT answer questions using only the relevant
+**pdfquery** is a command‑line tool that turns your PDFs into searchable
+vector indices (FAISS) and lets GPT answer questions using only the relevant
 passages.
 
 ## Quickstart
@@ -21,4 +21,18 @@ Set your OpenAI key first:
 
 ```bash
 export OPENAI_API_KEY="sk‑..."  # required
+```
+
+## Docker instructions
+
+```bash
+# build the image
+docker build -t pdfquery:latest .
+
+# run
+docker run --rm pdfquery:latest
+
+# example: index a PDF inside the container
+docker run --rm -v $PWD:/data pdfquery:latest \
+       index --source /data/my.pdf --name mydoc
 ```

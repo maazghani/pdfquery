@@ -21,3 +21,6 @@ dependencies = [
 
 [project.scripts]
 pdfquery = "pdfquery.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
