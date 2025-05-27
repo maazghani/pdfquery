@@ -85,14 +85,16 @@ def build_index(pdf_path: str, index_name: str, out_dir: str = "vector") -> None
     embeds = np.stack(embed_texts(chunks)).astype("float32")  # list → ndarray
     faiss.normalize_L2(embeds)
     dim = embeds.shape[1]
-    index = faiss.IndexFlatIP(dim)          # inner-product == cosine on L2-normed vectors
+    # inner-product == cosine on L2-normed vectors
+    index = faiss.IndexFlatIP(dim)
     index.add(embeds)
 
     # ── Persist ───────────────────────────────────────────
     faiss.write_index(index, os.path.join(out_path, "faiss.index"))
     with open(os.path.join(out_path, "metadata.jsonl"), "w", encoding="utf-8") as fh:
         for idx, chunk in enumerate(chunks):
-            meta = {"page": chunk.split(":\n", 1)[0], "chunk_id": idx, "text": chunk}
+            meta = {"page": chunk.split(
+                ":\n", 1)[0], "chunk_id": idx, "text": chunk}
             fh.write(json.dumps(meta) + "\n")
 
     print(f"[✓] Index stored in {out_path}")
@@ -102,7 +104,8 @@ def load_index(index_name: str, out_dir: str = "vector"):
     idx_path = os.path.join(out_dir, index_name, "faiss.index")
     meta_path = os.path.join(out_dir, index_name, "metadata.jsonl")
     if not (os.path.exists(idx_path) and os.path.exists(meta_path)):
-        raise FileNotFoundError(f"Index '{index_name}' not found in {out_dir}/")
+        raise FileNotFoundError(
+            f"Index '{index_name}' not found in {out_dir}/")
 
     index = faiss.read_index(idx_path)
     metadata = [json.loads(l) for l in open(meta_path, encoding="utf-8")]
