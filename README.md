@@ -33,6 +33,6 @@ docker build -t pdfquery:latest .
 docker run --rm pdfquery:latest
 
 # example: index a PDF inside the container
-docker run --rm -v $PWD:/data pdfquery:latest \
+docker run -e OPENAI_API_KEY=${OPENAI_API_KEY} --rm -v $PWD:/data pdfquery:latest \
        index --source /data/my.pdf --name mydoc
 ```
