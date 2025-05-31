@@ -47,6 +47,7 @@ test: venv
 
 lint: venv
 	@$(ACTIVATE); \
+	$(PIP) install ruff
 	echo "🔍 Linting with ruff…"; \
 	ruff check .
 
